@@ -48,7 +48,7 @@ main = do
   --а) введення даних з клавiатури
   arg1 <- getArgs
   --б) введення даних з файлу
-  contents <- readFile "file.txt"
+  contents <- readFile "/Users/DanilSay/Documents/GitHub/fp2021_labs/lab5/file.txt"
   let line1 = funk1_2 contents
   --в) виведення результатів на екран
   print (funk1_2 (head arg1))
