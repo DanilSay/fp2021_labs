@@ -1,18 +1,15 @@
--- Лабораторна робота №3
+-- Лабораторна робота №5
 -- студента групи КН-32/1
 -- Борисюка Даніла
 -- Варіант №5
 
--- Мета: Набути досвiду визначення та використання функцiй вищого порядку.
+-- Мета: ознайомитись з модульною органiзацiєю програм та засобами введення-виведення. Набути досвiду компiляцiї Haskell-програм.
 
 --Визначити довжину послiдовностi тотожних елементiв списку, напр.:
 --"aaabbcaadddd"⇒ [(’a’,3), (’b’,2), (’c’,1), (’a’,2), (’d’,4)].
 
---Main> funk_main "addaa"
---[('a',1),('d',2),('a',2)]
---Main> funk_main "addaadds"
---[('a',1),('d',2),('a',2),('d',2),('s',1)]
 import Data.Text.Internal.Read
+import System.Directory.Internal.Prelude (getArgs)
 
 funk_main :: [Char] -> [(Char, Int)]
 funk_main [] = []
@@ -26,24 +23,11 @@ funk1 str newStr var amount
     | var == head str = funk1 (tail str) newStr var (amount + 1)
     | otherwise       =  funk1 (tail str) (newStr ++ [(var, amount)]) (head str) 1
 
---б)
 funk1_2 :: String -> [(Char,Int)]
 funk1_2 [] = []
 funk1_2 (x:y:ls) = (y,digitToInt x) : funk1_2 ls
 
-
 --Знайти найбiльший спiльний дiльник двох чисел.
---а)
---Main> funk2_1 0 3
---3
---Main> funk2_1 1 3
---1
---Main> funk2_1 15 10
---5
---Main> funk2_1 15 6
---3
---Main> funk2_1 15 30
---15
 
 funk2_1 :: Integer -> Integer -> Integer
 funk2_1 0 b = b
@@ -58,7 +42,17 @@ helper a b = if a > b
     then helper (a - b) b
     else a
 
---б)
--- gcd 12 8
--- 4
--- Висновок: набути досвiду визначення та використання функцiй вищого порядку.
+
+main :: IO ()
+main = do
+  --а) введення даних з клавiатури
+  arg1 <- getArgs
+  --б) введення даних з файлу
+  contents <- readFile "file.txt"
+  let line1 = funk1_2 contents
+  --в) виведення результатів на екран
+  print (funk1_2 (head arg1))
+  --г) виведення результатів у файл
+  writeFile "result.txt" (concatMap show (funk1_2 (head arg1)))
+
+-- Висновок: ознайомився з модульною органiзацiєю програм та засобами введення-виведення. Набути досвiду компiляцiї Haskell-програм.
